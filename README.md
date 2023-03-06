@@ -1,4 +1,4 @@
-# dojo-react-native-pay-sdk
+# Dojo React Native Pay SDK
 
 React Native wrapper for Dojo Payment iOS and Android SDKs
 
@@ -24,7 +24,7 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 
 ## License
 
-MIT
+Dojo React Native Pay SDK is available under the MIT license. See the LICENSE file for more info.
 
 ---
 
