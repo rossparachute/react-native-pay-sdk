@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { PaymentDetails, ResultCode } from './NativeDojoReactNativePaySdk';
 
 const LINKING_ERROR =
   `The package 'dojo-react-native-pay-sdk' doesn't seem to be linked. Make sure: \n\n` +
@@ -24,6 +25,6 @@ const DojoReactNativePaySdk = DojoReactNativePaySdkModule
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return DojoReactNativePaySdk.multiply(a, b);
+export function startPaymentFlow(details: PaymentDetails): Promise<ResultCode> {
+  return DojoReactNativePaySdk.startPaymentFlow(details);
 }

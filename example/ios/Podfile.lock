@@ -1,7 +1,12 @@
 PODS:
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
+  - dojo-ios-sdk (1.1.0)
+  - dojo-ios-sdk-drop-in-ui (1.1.0):
+    - dojo-ios-sdk (= 1.1.0)
   - dojo-react-native-pay-sdk (0.1.0):
+    - dojo-ios-sdk (= 1.1.0)
+    - dojo-ios-sdk-drop-in-ui (= 1.1.0)
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.3)
@@ -422,6 +427,8 @@ PODS:
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - "dojo-ios-sdk (from `git@github.com:Dojo-Engineering/dojo-ios-sdk.git`, tag `1.1.0`)"
+  - "dojo-ios-sdk-drop-in-ui (from `git@github.com:dojo-engineering/dojo-ios-sdk-drop-in-ui.git`, tag `1.1.0`)"
   - dojo-react-native-pay-sdk (from `../..`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -503,6 +510,12 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  dojo-ios-sdk:
+    :git: "git@github.com:Dojo-Engineering/dojo-ios-sdk.git"
+    :tag: 1.1.0
+  dojo-ios-sdk-drop-in-ui:
+    :git: "git@github.com:dojo-engineering/dojo-ios-sdk-drop-in-ui.git"
+    :tag: 1.1.0
   dojo-react-native-pay-sdk:
     :path: "../.."
   DoubleConversion:
@@ -572,10 +585,20 @@ EXTERNAL SOURCES:
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
+CHECKOUT OPTIONS:
+  dojo-ios-sdk:
+    :git: "git@github.com:Dojo-Engineering/dojo-ios-sdk.git"
+    :tag: 1.1.0
+  dojo-ios-sdk-drop-in-ui:
+    :git: "git@github.com:dojo-engineering/dojo-ios-sdk-drop-in-ui.git"
+    :tag: 1.1.0
+
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  dojo-react-native-pay-sdk: 760bc614859470dbb26ea1ba33c6a308bc7a8023
+  dojo-ios-sdk: 9b10ad6961b932b013147b5afa90d0804e1b8cb9
+  dojo-ios-sdk-drop-in-ui: 5b524139af513e898881201c79f8f3104cd4dabd
+  dojo-react-native-pay-sdk: 58f1f681d5739589226a6471168f0fd3b38e02a1
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 60195509584153283780abdac5569feffb8f08cc
   FBReactNativeSpec: 9c191fb58d06dc05ab5559a5505fc32139e9e4a2
@@ -624,6 +647,6 @@ SPEC CHECKSUMS:
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: bb800e9f9436dd6b62373ab5c4d3d1641d336e9c
+PODFILE CHECKSUM: e2197a2deb02f197d8f54da20ce36efa46e9e677
 
 COCOAPODS: 1.12.0
