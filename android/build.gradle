@@ -77,6 +77,14 @@ android {
 repositories {
   mavenCentral()
   google()
+
+  maven {
+    url = uri("https://maven.pkg.github.com/dojo-engineering/android-dojo-pay-sdk")
+    credentials {
+      username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+      password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+    }
+  }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
@@ -87,6 +95,10 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "tech.dojo.pay:uisdk:1.1.1"
+  implementation "tech.dojo.pay:sdk:1.4.0"
+  implementation 'androidx.appcompat:appcompat:1.4.1'
+  implementation 'com.google.android.material:material:1.4.+'
 }
 
 if (isNewArchitectureEnabled()) {
