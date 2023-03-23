@@ -1,19 +1,27 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { startPaymentFlow } from 'dojo-react-native-pay-sdk';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
+  const [token, setToken] = React.useState<string>('');
 
   const pay = () => {
-    startPaymentFlow({ intentId: '', darkTheme: true }).then((res) => {
+    startPaymentFlow({
+      intentId: token,
+      darkTheme: true,
+      sandbox: true,
+    }).then((res) => {
       setResult(res);
     });
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.input} onChangeText={setToken} value={token} />
+      </View>
       <Button title="Pay" onPress={pay} />
       <Text>Result: {result}</Text>
     </View>
@@ -25,10 +33,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  inputContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    flex: 1,
   },
 });

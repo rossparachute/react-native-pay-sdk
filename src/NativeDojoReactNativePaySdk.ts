@@ -21,6 +21,7 @@ export type PaymentDetails = {
   customerSecret?: string;
   applePayMerchantId?: string;
   darkTheme?: boolean;
+  sandbox?: boolean;
 };
 
 export interface Spec extends TurboModule {
