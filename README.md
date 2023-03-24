@@ -7,7 +7,7 @@ React Native wrapper for Dojo Payment iOS and Android SDKs
 Add the package to your project
 
 ```sh
-npm install dojo-react-native-pay-sdk
+npm install @dojo-engineering/react-native-pay-sdk
 ```
 
 ### Android
@@ -66,7 +66,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ## Usage
 
 ```js
-import { startPaymentFlow } from 'dojo-react-native-pay-sdk';
+import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
 
 // ...
 

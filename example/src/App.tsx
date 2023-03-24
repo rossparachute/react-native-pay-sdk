@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
-import { startPaymentFlow } from 'dojo-react-native-pay-sdk';
+import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();

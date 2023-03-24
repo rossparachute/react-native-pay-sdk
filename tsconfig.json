@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "dojo-react-native-pay-sdk": ["./src/index"]
+      "@dojo-engineering/react-native-pay-sdk": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

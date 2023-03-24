@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 import type { PaymentDetails, ResultCode } from './NativeDojoReactNativePaySdk';
 
 const LINKING_ERROR =
-  `The package 'dojo-react-native-pay-sdk' doesn't seem to be linked. Make sure: \n\n` +
+  `The package '@dojo-engineering/react-native-pay-sdk' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
