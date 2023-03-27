@@ -28,3 +28,5 @@ const DojoReactNativePaySdk = DojoReactNativePaySdkModule
 export function startPaymentFlow(details: PaymentDetails): Promise<ResultCode> {
   return DojoReactNativePaySdk.startPaymentFlow(details);
 }
+
+export { PaymentDetails, ResultCode };
