@@ -10,9 +10,18 @@ Add the package to your project
 npm install @dojo-engineering/react-native-pay-sdk
 ```
 
+### iOS
+
+Add the native dependencies to your `Podfile`
+
+```ruby
+pod 'dojo-ios-sdk', :git => 'git@github.com:Dojo-Engineering/dojo-ios-sdk.git', :tag => '1.1.0'
+pod 'dojo-ios-sdk-drop-in-ui', :git => 'git@github.com:dojo-engineering/dojo-ios-sdk-drop-in-ui.git', :tag => '1.1.1'
+```
+
 ### Android
 
-Add the dependency to your apps `build.gradle`
+Add the native dependencies to your apps `build.gradle`
 
 ```groovy
 implementation("tech.dojo.pay:uisdk:1.1.0")
