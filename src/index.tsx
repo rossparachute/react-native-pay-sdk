@@ -1,5 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
-import type { PaymentDetails, ResultCode } from './NativeDojoReactNativePaySdk';
+import { PaymentDetails, ResultCode } from './NativeDojoReactNativePaySdk';
 
 const LINKING_ERROR =
   `The package '@dojo-engineering/react-native-pay-sdk' doesn't seem to be linked. Make sure: \n\n` +
