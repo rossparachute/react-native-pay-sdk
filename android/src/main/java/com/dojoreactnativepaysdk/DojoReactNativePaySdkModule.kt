@@ -17,7 +17,7 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
 
   @ReactMethod
   override fun startPaymentFlow(details: ReadableMap, promise: Promise) {
-    val isSandbox = details.getBoolean(IS_SANDBOX)
+    val isSandbox = if details.hasKey(IS_SANDBOX) details.getBoolean(IS_SANDBOX) else false
     val intentId = details.getString(INTENT_ID)
     val customerSecret = details.getString(CUSTOMER_SECRET)
     val gPayMerchantId = details.getString(GOOGLE_PAY_MERCHANT_ID)
