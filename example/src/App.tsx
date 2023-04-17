@@ -10,7 +10,6 @@ export default function App() {
   const pay = () => {
     startPaymentFlow({
       intentId: token,
-      darkTheme: true,
       sandbox: true,
     }).then((res) => {
       setResult(res);

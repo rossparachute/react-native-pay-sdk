@@ -42,6 +42,13 @@ export type PaymentDetails = {
   darkTheme?: boolean;
 
   /**
+   * Should the payment UI use light theme
+   *
+   * Android only
+   */
+  forceLightMode?: boolean;
+
+  /**
    * Should the sdk use sandbox mode
    *
    * Android only

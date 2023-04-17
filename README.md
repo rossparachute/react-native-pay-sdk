@@ -4,6 +4,8 @@ React Native wrapper for Dojo Payment iOS and Android SDKs
 
 ## Installation
 
+Note: as the package is published privately in github packages, you will need to authenticate npm/yarn with github as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package).
+
 Add the package to your project
 
 ```sh
@@ -24,8 +26,8 @@ pod 'dojo-ios-sdk-drop-in-ui', :git => 'git@github.com:dojo-engineering/dojo-ios
 Add the native dependencies to your apps `build.gradle`
 
 ```groovy
-implementation("tech.dojo.pay:uisdk:1.1.0")
-implementation("tech.dojo.pay:sdk:1.4.0")
+implementation("tech.dojo.pay:uisdk:1.1.3")
+implementation("tech.dojo.pay:sdk:1.4.5")
 ```
 
 Add the necessary repositories to retrieve the dependencies
@@ -87,6 +89,8 @@ if (result === 0) {
   // error
 }
 ```
+
+All the params and possible result codes are documented by the types [here](https://github.com/dojo-engineering/react-native-pay-sdk/blob/main/src/NativeDojoReactNativePaySdk.ts).
 
 ## Contributing
 
