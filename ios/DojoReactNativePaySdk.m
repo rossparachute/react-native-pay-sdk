@@ -44,6 +44,7 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
                                  customerSecret:customerSecret
                                  applePayConfig:applePayConfig
                                   themeSettings:theme
+                                    debugConfig:nil
                                      completion:^(NSInteger result) {
         NSLog(@"%ld", (long)result);
         resolve(@(result));
