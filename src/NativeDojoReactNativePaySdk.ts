@@ -49,13 +49,6 @@ export type PaymentDetails = {
   forceLightMode?: boolean;
 
   /**
-   * Should the sdk use sandbox mode
-   *
-   * Android only
-   */
-  sandbox?: boolean;
-
-  /**
    * Google Pay merchant ID
    *
    * Android only

@@ -17,7 +17,6 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
 
   @ReactMethod
   override fun startPaymentFlow(details: ReadableMap, promise: Promise) {
-    val isSandbox = if (details.hasKey(IS_SANDBOX)) details.getBoolean(IS_SANDBOX) else false
     val intentId = details.getString(INTENT_ID)
     val customerSecret = details.getString(CUSTOMER_SECRET)
     val gPayMerchantId = details.getString(GOOGLE_PAY_MERCHANT_ID)
@@ -34,9 +33,6 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
       merchantId = gPayMerchantId,
       gatewayMerchantId = gPayGatewayMerchantId
     ) else null
-
-    DojoSdk.isWalletSandBox = isSandbox
-    DojoSdk.isCardSandBox = isSandbox
 
     if (intentId.isNullOrEmpty()) {
       promise.resolve(DojoPaymentResult.INVALID_REQUEST)
@@ -66,7 +62,6 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
     const val INTENT_ID = "intentId"
     const val CUSTOMER_SECRET = "customerSecret"
     const val FORCE_LIGHT_MODE = "forceLightMode"
-    const val IS_SANDBOX = "sandbox"
     const val GOOGLE_PAY_MERCHANT_ID = "gPayMerchantId"
     const val GOOGLE_PAY_GATEWAY_MERCHANT_ID = "gPayGatewayMerchantId"
     const val GOOGLE_PAY_MERCHANT_NAME = "gPayMerchantName"
