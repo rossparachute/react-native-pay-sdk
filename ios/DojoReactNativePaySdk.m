@@ -1,5 +1,6 @@
 #import "DojoReactNativePaySdk.h"
 #import <React/RCTUtils.h>
+@import dojo_ios_sdk;
 @import dojo_ios_sdk_drop_in_ui;
 
 @implementation DojoReactNativePaySdk
@@ -7,7 +8,7 @@ RCT_EXPORT_MODULE()
 
 - (dispatch_queue_t)methodQueue
 {
-  return dispatch_get_main_queue();
+    return dispatch_get_main_queue();
 }
 
 // Example method
@@ -25,6 +26,7 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
     NSString *intentId = details[@"intentId"];
     NSString *customerSecret = details[@"customerSecret"];
     NSNumber *darkTheme = details[@"darkTheme"];
+    NSNumber *isProduction = details[@"isProduction"];
     
     DojoUIApplePayConfig *applePayConfig = nil;
     if (applePayMerchantId != nil) {
@@ -32,8 +34,23 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
                           initWithMerchantIdentifier:applePayMerchantId];
     }
     
+    
+    
+    
+    DojoSDKDebugConfig *debugConfig;
+    if (isProduction != nil && isProduction.boolValue == false) {
+        DojoSDKURLConfig *urlConfig = [[DojoSDKURLConfig alloc]
+                                       initWithConnectE: @"https://web.e.test.connect.paymentsense.cloud"
+                                       remote: @"https://staging-api.dojo.dev/master"];
+        debugConfig = [[DojoSDKDebugConfig alloc]
+                       initWithUrlConfig:urlConfig
+                       isSandboxIntent:true
+                       isSandboxWallet:true];
+    }
+    
+    
     DojoThemeSettings *theme;
-    if (darkTheme.boolValue == true) {
+    if (darkTheme != nil && darkTheme.boolValue == true) {
         theme = [DojoThemeSettings getDarkTheme];
     } else {
         theme = [DojoThemeSettings getLightTheme];
@@ -44,7 +61,7 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
                                  customerSecret:customerSecret
                                  applePayConfig:applePayConfig
                                   themeSettings:theme
-                                    debugConfig:nil
+                                    debugConfig:debugConfig
                                      completion:^(NSInteger result) {
         NSLog(@"%ld", (long)result);
         resolve(@(result));

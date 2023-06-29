@@ -4,6 +4,8 @@ import com.facebook.react.bridge.*
 import tech.dojo.pay.sdk.DojoPaymentResult
 import tech.dojo.pay.sdk.DojoSdk
 import tech.dojo.pay.sdk.card.entities.DojoGPayConfig
+import tech.dojo.pay.sdk.card.entities.DojoSDKDebugConfig
+import tech.dojo.pay.sdk.card.entities.DojoSDKURLConfig
 import tech.dojo.pay.uisdk.DojoSDKDropInUI
 import tech.dojo.pay.uisdk.entities.DojoPaymentFlowParams
 import tech.dojo.pay.uisdk.entities.DojoThemeSettings
@@ -23,6 +25,7 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
     val gPayMerchantName = details.getString(GOOGLE_PAY_MERCHANT_NAME)
     val gPayGatewayMerchantId = details.getString(GOOGLE_PAY_GATEWAY_MERCHANT_ID)
     val forceLightMode = if (details.hasKey(FORCE_LIGHT_MODE)) details.getBoolean(FORCE_LIGHT_MODE) else false
+    val isProduction = if (details.hasKey(IS_PRODUCTION)) details.getBoolean(IS_PRODUCTION) else true
 
     val gPayConfig = if (
       gPayMerchantId !== null &&
@@ -44,6 +47,18 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
       return
     }
 
+    val urlConfig = if (!isProduction) DojoSDKURLConfig(
+      "https://web.e.test.connect.paymentsense.cloud/",
+      "https://staging-api.dojo.dev/master/",
+    ) else null
+
+    var debugConfig = if (!isProduction) DojoSDKDebugConfig(
+      urlConfig,
+      true,
+      true
+    ) else null
+
+    DojoSDKDropInUI.dojoSDKDebugConfig = debugConfig
     DojoSDKDropInUI.dojoThemeSettings = DojoThemeSettings(forceLightMode = forceLightMode)
 
     DojoPay.activePromise = promise
@@ -61,6 +76,7 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
     const val NAME = "DojoReactNativePaySdk"
     const val INTENT_ID = "intentId"
     const val CUSTOMER_SECRET = "customerSecret"
+    const val IS_PRODUCTION = "isProduction"
     const val FORCE_LIGHT_MODE = "forceLightMode"
     const val GOOGLE_PAY_MERCHANT_ID = "gPayMerchantId"
     const val GOOGLE_PAY_GATEWAY_MERCHANT_ID = "gPayGatewayMerchantId"
