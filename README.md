@@ -1,5 +1,8 @@
 # Dojo React Native Pay SDK
 
+![GitHub release](https://badgen.net/github/release/Dojo-Engineering/react-native-pay-sdk)
+![GitHub license](https://badgen.net/static/license/MIT)
+
 React Native wrapper for Dojo Payment iOS and Android SDKs
 
 ## Installation
