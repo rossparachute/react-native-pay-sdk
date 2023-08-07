@@ -9,6 +9,10 @@ import tech.dojo.pay.uisdk.DojoSDKDropInUI
 import tech.dojo.pay.uisdk.entities.DojoPaymentFlowParams
 import tech.dojo.pay.uisdk.entities.DojoThemeSettings
 
+const val RN_NAMESPACE = "com.dojoreactnativepaysdk"
+const val RN_MODULE_NAME = "DojoReactNativePaySdkModule"
+const val RN_MODULE_NAME_FULL = "$RN_NAMESPACE.$RN_MODULE_NAME"
+
 class DojoReactNativePaySdkModule internal constructor(context: ReactApplicationContext) :
   DojoReactNativePaySdkSpec(context) {
 

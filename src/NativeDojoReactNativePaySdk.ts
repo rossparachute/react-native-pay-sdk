@@ -1,5 +1,6 @@
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
+import { requireNativeModule } from 'expo-modules-core'
 
 export enum ResultCode {
   successful = 0,
@@ -93,6 +94,30 @@ export type PaymentDetails = {
 
 export interface Spec extends TurboModule {
   startPaymentFlow(details: PaymentDetails): Promise<number>;
+  hello(): string;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('DojoReactNativePaySdk');
+let RTNModule: Spec | null = null;
+let ExpoModule: any | null = null;
+
+// Fail silently for RN and Expo CLI builds
+
+// Expo Module
+try {
+  console.log('got ere')
+  ExpoModule = requireNativeModule("DojoReactNativePaySdkExpo")
+}
+catch(e) {
+  console.error(e)
+}
+
+// RTN
+try {
+  RTNModule = TurboModuleRegistry.getEnforcing<Spec>('DojoReactNativePaySdk')
+}
+catch(e) {
+  console.error(e)
+}
+
+export default RTNModule
+export { ExpoModule }
