@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Switch} from 'react-native';
 import { useRoute, useNavigation } from "@react-navigation/native"
 
-const SettingsPage = () => {
-//    const [isEnabled, setIsEnabled] = useState(useRoute().params?.gpayEnabled);
+import { useSwitchContext } from './SwitchContext';
+
+const SettingsPage = ({}) => {
+   //const [isEnabled, setIsEnabled] = useState(useRoute().params?.gpayEnabled);
+
+    const { isEnabled, toggleSwitch } = useSwitchContext();
 
     return (
         <View style = {styles.mainContainer} >
             <Text style = {styles.label} >GPay</Text>
             <Switch
                 name = "GPay switch"
-                onValueChange = {useRoute().params.onSelect}
-                value={useRoute().params?.gpayEnabled()}
+                //onValueChange = {useRoute().params.onSelect}
+                onValueChange={toggleSwitch}
+                value={isEnabled}
             />
         </View>
     );

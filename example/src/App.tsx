@@ -9,16 +9,18 @@ const Stack = createStackNavigator();
 
 import FirstPage from './FirstPage';
 import SettingsPage from './SettingsPage';
+import { SwitchProvider } from './SwitchContext';
 
 export default function App() {
 
   return (
-    <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name = " " component={FirstPage} />
-      <Stack.Screen name = "Settings" component={SettingsPage} />
-    </Stack.Navigator>
-    </NavigationContainer>
-
+    <SwitchProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name = "First Page" component={FirstPage} />
+          <Stack.Screen name = "Settings" component={SettingsPage} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SwitchProvider>
   );
 }
