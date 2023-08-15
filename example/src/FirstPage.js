@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import { Button } from '@rneui/themed';
@@ -11,31 +11,24 @@ import { Button } from '@rneui/themed';
 import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
 import { useSwitchContext } from './SwitchContext';
 
-
-const pay = () => {
-    startPaymentFlow({
-      intentId: "pi_sandbox_KuT-pxdipU2FG8YBghMR6w",
-    }).then((res) => {
-      setResult(res);
-    });
-  };
-
 const FirstPage = () => {
     const [userInput, setUserInput] = useState ('');
-    const [gpayEnabledInput, setGpayState] = useState(false);
 
     const handleChange = (value) => {
       setUserInput(value);
     }
-
-    function getGPayState() {
-      return gpayEnabledInput
-    }
   
     const handlePress = () => {
-       //pay();
-       Alert.alert ('You entered:', `${userInput}`);
+       pay();
     }
+
+    const pay = () => {
+      startPaymentFlow({
+        intentId: userInput,
+      }).then((res) => {
+        setResult(res);
+      });
+    };
 
     const navigation = useNavigation();
     
@@ -53,7 +46,6 @@ const FirstPage = () => {
             color='green'
             onPress={handlePress}
           />
-          {/* <Text>{gpayEnabledInput ? "GPay Enabled": "GPay Disabled" } </Text>  */}
           <Text>{isEnabled? "GPay Enabled": "GPay Disabled" } </Text> 
 
 
@@ -62,10 +54,9 @@ const FirstPage = () => {
             title="Settings"
             type='clear'
             color='gray'
-            // onPress = {() => navigation.navigate('Settings', {gpayEnabled: getGPayState, onSelect: setGpayState})}
+            hide='true'
             onPress = {() => navigation.navigate('Settings')}
-
-         />
+          />
         </View>
 
         <StatusBar style="auto" />
@@ -85,6 +76,7 @@ const styles = StyleSheet.create({
     bottomContainer: {
       position: 'absolute',
       bottom: 0,
+      display: "none"
     },
   
     input: {
