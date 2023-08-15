@@ -10,14 +10,22 @@
     "bundle": "bundle install"
   },
   "dependencies": {
+    "@react-native-community/cli-platform-android": "^11.3.6",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/stack": "^6.3.17",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "expo-status-bar": "^1.6.0",
     "react": "18.2.0",
-    "react-native": "0.71.8"
+    "react-native": "0.71.8",
+    "react-native-gesture-handler": "^2.12.1",
+    "react-native-safe-area-context": "^4.7.1",
+    "react-native-screens": "^3.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
-    "metro-react-native-babel-preset": "0.73.9",
-    "babel-plugin-module-resolver": "^4.1.0"
+    "babel-plugin-module-resolver": "^4.1.0",
+    "metro-react-native-babel-preset": "0.73.9"
   }
 }
