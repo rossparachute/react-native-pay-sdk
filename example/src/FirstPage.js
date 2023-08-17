@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Platform } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -45,7 +45,7 @@ const FirstPage = () => {
         onPress={handlePress}
       />
       <View style={{ margin: 10, alignItems: 'center', }}>
-        <Text>{isEnabled ? "GPay Enabled" : "GPay Disabled"} </Text>
+        <Text>{isEnabled ? "walletPayments Enabled" : "walletPayments Disabled"} </Text>
         <Text>Theme: {selectedIndex} </Text>
       </View>
       <View style={styles.bottomContainer}>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     position: 'absolute',
     bottom: 0,
-    display: "none"
+    // display: "none"
   },
 
   input: {

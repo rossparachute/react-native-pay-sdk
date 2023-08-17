@@ -1,18 +1,26 @@
 import React from 'react';
-import { Text, View, StyleSheet, Switch } from 'react-native';
+import { Text, View, StyleSheet, Switch, Platform } from 'react-native';
 import { useSwitchContext } from './SwitchContext';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 const SettingsPage = () => {
 
     const { isEnabled, toggleSwitch, selectedIndex, handleIndexChange } = useSwitchContext();
+    var OSpay = ""
+    if (Platform.OS === 'android'){
+        OSpay = "GPay";
+    }
+     else if (Platform.OS === 'ios') {
+        OSpay = "ApplePay";
+    }  
+
 
     return (
         <View style={styles.mainContainer} >
             <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.label} >GPay</Text>
+                <Text style={styles.label} >{OSpay}</Text>
                 <Switch style={{ margin: 10, color: 'blue' }}
-                    name="GPay switch"
+                    name="OSpay Switch"
                     onValueChange={toggleSwitch}
                     value={isEnabled}
                 />
