@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { useState } from 'react';
@@ -74,7 +73,7 @@ const FirstPage = () => {
       />
       <View style={{margin: 10, alignItems: 'center'}}>
         <Text>WalletPayments: {walletPaymentsEnabled ? "Enabled" : "Disabled"} </Text>
-        <Text>Theme: {darkThemeEnabled  == 0 ?  "Light" : "Dark"} </Text>
+        <Text>Theme: {darkThemeEnabled  === 0 ?  "Light" : "Dark"} </Text>
       </View>
       <View style={styles.bottomContainer}>
         <Button
