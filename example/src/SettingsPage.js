@@ -5,7 +5,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 const SettingsPage = () => {
 
-    const { isEnabled, toggleSwitch, selectedIndex, handleIndexChange } = useSwitchContext();
+    const { walletPaymentsEnabled, toggleSwitch, darkThemeEnabled, handleIndexChange } = useSwitchContext();
     var OSpay = ""
     if (Platform.OS === 'android'){
         OSpay = "GPay";
@@ -14,7 +14,6 @@ const SettingsPage = () => {
         OSpay = "ApplePay";
     }  
 
-
     return (
         <View style={styles.mainContainer} >
             <View style={{ flexDirection: 'row' }}>
@@ -22,13 +21,13 @@ const SettingsPage = () => {
                 <Switch style={{ margin: 10, color: 'blue' }}
                     name="OSpay Switch"
                     onValueChange={toggleSwitch}
-                    value={isEnabled}
+                    value={walletPaymentsEnabled}
                 />
             </View>
             <View style={styles.segmentContainer} >
                 <SegmentedControlTab
                     values={['Light Theme', 'Dark Theme']}
-                    selectedIndex={selectedIndex}
+                    selectedIndex={darkThemeEnabled}
                     onTabPress={handleIndexChange}
                     activeTabStyle={styles.activeTabStyle}
                     tabStyle={styles.tabStyle}
@@ -67,9 +66,6 @@ const styles = StyleSheet.create({
     tabTextStyle: {
         color: '#008275',
     },
-
-
-
 })
 
 

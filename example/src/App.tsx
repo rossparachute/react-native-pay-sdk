@@ -17,7 +17,7 @@ export default function App() {
     <SwitchProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name = "First Page" component={FirstPage} />
+          <Stack.Screen name = "Dojo SDK" component={FirstPage} />
           <Stack.Screen name = "Settings" component={SettingsPage} />
         </Stack.Navigator>
       </NavigationContainer>
