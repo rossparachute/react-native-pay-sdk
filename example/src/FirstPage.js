@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -25,13 +24,41 @@ const FirstPage = () => {
   const pay = () => {
     startPaymentFlow({
       intentId: userInput,
+      darkTheme: darkThemeEnabled,
+      applePayMerchantId: getAppleMerchantId(),
+      gPayMerchantId: getGPayMerchantId(),
+      gPayGatewayMerchantId: getGPayGatewayMerchantId()
     }).then((res) => {
-      setResult(res);
+      Alert.alert("Result: " + res)
     });
   };
 
+  function getAppleMerchantId() {
+    var merchantId;
+    if (walletPaymentsEnabled) {
+      merchantId = "merchant.ApplePay.id.test"
+    }
+    return merchantId
+  }
+
+  function getGPayMerchantId() {
+    var merchantId;
+    if (walletPaymentsEnabled) {
+      merchantId = "dojo"
+    }
+    return merchantId
+  }
+
+  function getGPayGatewayMerchantId() {
+    var merchantId;
+    if (walletPaymentsEnabled) {
+      merchantId = "merchant.GPay.gateway.test"
+    }
+    return merchantId
+  }
+
   const navigation = useNavigation();
-  const { isEnabled, selectedIndex } = useSwitchContext();
+  const { walletPaymentsEnabled, darkThemeEnabled } = useSwitchContext();
 
   return (
     <View style={styles.mainContainer}>
@@ -44,15 +71,14 @@ const FirstPage = () => {
         color='#008275'
         onPress={handlePress}
       />
-      <View style={{ margin: 10, alignItems: 'center', }}>
-        <Text>{isEnabled ? "GPay Enabled" : "GPay Disabled"} </Text>
-        <Text>Theme: {selectedIndex} </Text>
+      <View style={{margin: 10, alignItems: 'center'}}>
+        <Text>WalletPayments: {walletPaymentsEnabled ? "Enabled" : "Disabled"} </Text>
+        <Text>Theme: {darkThemeEnabled  === 0 ?  "Light" : "Dark"} </Text>
       </View>
       <View style={styles.bottomContainer}>
         <Button
           title="Settings"
           type='clear'
-          hide='true'
           onPress={() => navigation.navigate('Settings')}
         />
       </View>
@@ -72,8 +98,7 @@ const styles = StyleSheet.create({
 
   bottomContainer: {
     position: 'absolute',
-    bottom: 0,
-    display: "none"
+    bottom: 20
   },
 
   input: {

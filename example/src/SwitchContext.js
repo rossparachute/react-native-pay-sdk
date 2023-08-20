@@ -8,20 +8,20 @@ export const useSwitchContext = () => {
 };
 
 export const SwitchProvider = ({ children }) => {
-  const [isEnabled, setIsEnabled] = useState(true);
+  const [walletPaymentsEnabled, setIsEnabled] = useState(true);
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
   };
   
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [darkThemeEnabled, setSelectedIndex] = useState(0);
 
     const handleIndexChange = (index) => {
         setSelectedIndex(index);
     }
 
   return (
-    <SwitchContext.Provider value={{ isEnabled, toggleSwitch, selectedIndex, handleIndexChange }}>
+    <SwitchContext.Provider value={{ walletPaymentsEnabled, toggleSwitch, darkThemeEnabled, handleIndexChange }}>
       {children}
     </SwitchContext.Provider>
   );
