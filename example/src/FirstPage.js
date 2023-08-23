@@ -24,7 +24,8 @@ const FirstPage = () => {
   const pay = () => {
     startPaymentFlow({
       intentId: userInput,
-      darkTheme: darkThemeEnabled,
+      darkTheme: darkThemeEnabled === 0,
+      forceLightMode: darkThemeEnabled === 0,
       applePayMerchantId: getAppleMerchantId(),
       gPayMerchantId: getGPayMerchantId(),
       gPayGatewayMerchantId: getGPayGatewayMerchantId()
@@ -62,25 +63,37 @@ const FirstPage = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <TextInput
-        style={styles.input}
-        onChangeText={handleChange}
-      />
-      <Button
-        title="Submit"
-        color='#008275'
-        onPress={handlePress}
-      />
-      <View style={{margin: 10, alignItems: 'center'}}>
-        <Text>WalletPayments: {walletPaymentsEnabled ? "Enabled" : "Disabled"} </Text>
-        <Text>Theme: {darkThemeEnabled  === 0 ?  "Light" : "Dark"} </Text>
+
+      <TextInput style={styles.input} onChangeText={handleChange} placeholder='IntentId' />
+
+      <View style={styles.leftContainer}>
+        <Text style={styles.settingsLabels}>WalletPayments: {walletPaymentsEnabled ? "Enabled" : "Disabled"} </Text>
+        <Text style={styles.settingsLabels}>Theme: {darkThemeEnabled === 0 ? "Light" : "Dark"} </Text>
       </View>
-      <View style={styles.bottomContainer}>
+
+      <View style={styles.rightContainer}>
         <Button
           title="Settings"
           type='clear'
           onPress={() => navigation.navigate('Settings')}
         />
+      </View>
+
+      <View style={styles.bottomContainer}>
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="StartSetupFlow"
+            color='#008275'
+            onPress={handlePress}
+          />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="StartPaymentFlow"
+            color='#008275'
+            onPress={handlePress}
+          />
+        </View>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -92,21 +105,35 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
   },
-
+  leftContainer: {
+    padding: 15,
+    alignSelf: 'flex-start',
+  },
+  rightContainer: {
+    padding: 10,
+    alignSelf: 'flex-end',
+    marginTop:-60
+  },
   bottomContainer: {
-    position: 'absolute',
-    bottom: 20
+    padding:10,
+    marginTop:80
+  },
+  input: {
+    borderWidth: 0.8,
+    width: 200,
+    marginTop: 280,
+    fontSize: 20,
+    fontFamily: 'Araboto',
+    padding: 10
+  },
+  settingsLabels: {
+    fontSize: 15,
+  },
+  buttonWrapper: {
+    marginVertical: 8,
   },
 
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    margin: 10,
-    width: 200,
-  },
 });
 
 export default FirstPage;

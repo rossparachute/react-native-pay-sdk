@@ -7,32 +7,37 @@ const SettingsPage = () => {
 
     const { walletPaymentsEnabled, toggleSwitch, darkThemeEnabled, handleIndexChange } = useSwitchContext();
     var OSpay = ""
-    if (Platform.OS === 'android'){
+    if (Platform.OS === 'android') {
         OSpay = "GPay";
     }
-     else if (Platform.OS === 'ios') {
+    else if (Platform.OS === 'ios') {
         OSpay = "ApplePay";
-    }  
+    }
 
     return (
         <View style={styles.mainContainer} >
             <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.label} >{OSpay}</Text>
-                <Switch style={{ margin: 10, color: 'blue' }}
+
+                <Switch style={styles.rightContainer}
                     name="OSpay Switch"
                     onValueChange={toggleSwitch}
                     value={walletPaymentsEnabled}
                 />
             </View>
-            <View style={styles.segmentContainer} >
-                <SegmentedControlTab
-                    values={['Light Theme', 'Dark Theme']}
-                    selectedIndex={darkThemeEnabled}
-                    onTabPress={handleIndexChange}
-                    activeTabStyle={styles.activeTabStyle}
-                    tabStyle={styles.tabStyle}
-                    tabTextStyle={styles.tabTextStyle}
-                />
+
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.label}>Theme</Text>
+                <View style={[styles.segmentContainer, styles.rightContainer]} >
+                    <SegmentedControlTab
+                        values={['Light', 'Dark']}
+                        selectedIndex={darkThemeEnabled}
+                        onTabPress={handleIndexChange}
+                        activeTabStyle={styles.activeTabStyle}
+                        tabStyle={styles.tabStyle}
+                        tabTextStyle={styles.tabTextStyle}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -40,20 +45,31 @@ const SettingsPage = () => {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        padding: 80,
-        justifyContent: "center",
-        alignItems: "center"
+        paddingRight: 55,
+        paddingLeft: 55,
+        paddingTop: 15
     },
     label: {
-        margin: 10,
+        marginLeft: -30,
         fontSize: 17,
+        padding: 10,
+        fontWeight: '500'
+
     },
     segmentContainer: {
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        marginTop: 20,
-        width: 200
+        marginTop: 5,
+        width: 150
     },
+
+    rightContainer: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        justifyContent: 'center',
+        
+    },
+
     activeTabStyle: {
         backgroundColor: '#008275',
         borderColor: 'white',
@@ -65,6 +81,8 @@ const styles = StyleSheet.create({
     },
     tabTextStyle: {
         color: '#008275',
+        fontFamily: 'Araboto',
+
     },
 })
 
