@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
         borderColor: 'white',
     },
     tabTextStyle: {
-        color: '#008275',
-        fontFamily: 'Araboto',
+        color: '#008275'
 
     },
 })

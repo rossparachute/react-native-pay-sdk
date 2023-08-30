@@ -24,7 +24,7 @@ const FirstPage = () => {
   const pay = () => {
     startPaymentFlow({
       intentId: userInput,
-      darkTheme: darkThemeEnabled === 0,
+      darkTheme: darkThemeEnabled === 1,
       forceLightMode: darkThemeEnabled === 0,
       applePayMerchantId: getAppleMerchantId(),
       gPayMerchantId: getGPayMerchantId(),
