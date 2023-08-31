@@ -88,6 +88,7 @@ const FirstPage = () => {
 
       <View style={styles.rightContainer}>
         <Button
+          // @ts-ignore: will refactor later
           title="Settings"
           type="clear"
           // @ts-ignore: will refactor later
@@ -98,6 +99,7 @@ const FirstPage = () => {
       <View style={styles.bottomContainer}>
         <View style={styles.buttonWrapper}>
           <Button
+            // @ts-ignore: will refactor later
             title="StartSetupFlow"
             color="#008275"
             onPress={handleSetupIntentPress}
@@ -105,6 +107,7 @@ const FirstPage = () => {
         </View>
         <View style={styles.buttonWrapper}>
           <Button
+            // @ts-ignore: will refactor later
             title="StartPaymentFlow"
             color="#008275"
             onPress={handlePaymentIntentPress}
