@@ -29,4 +29,8 @@ export function startPaymentFlow(details: PaymentDetails): Promise<ResultCode> {
   return DojoReactNativePaySdk.startPaymentFlow(details);
 }
 
+export function startSetupFlow(details: PaymentDetails): Promise<ResultCode> {
+  return DojoReactNativePaySdk.startSetupFlow(details);
+}
+
 export { PaymentDetails, ResultCode };

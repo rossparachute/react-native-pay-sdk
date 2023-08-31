@@ -7,7 +7,7 @@ import 'react-native-gesture-handler';
 import { Button } from '@rneui/themed';
 
 // sdk
-import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
+import { startPaymentFlow, startSetupFlow } from '@dojo-engineering/react-native-pay-sdk';
 import { useSwitchContext } from './SwitchContext';
 
 const FirstPage = () => {
@@ -17,11 +17,7 @@ const FirstPage = () => {
     setUserInput(value);
   }
 
-  const handlePress = () => {
-    pay();
-  }
-
-  const pay = () => {
+  const handlePaymentIntentPress = () => {
     startPaymentFlow({
       intentId: userInput,
       darkTheme: darkThemeEnabled === 1,
@@ -32,7 +28,20 @@ const FirstPage = () => {
     }).then((res) => {
       Alert.alert("Result: " + res)
     });
-  };
+  }
+
+  const handleSetupIntentPress = () => {
+    startSetupFlow({
+      intentId: userInput,
+      darkTheme: darkThemeEnabled === 1,
+      forceLightMode: darkThemeEnabled === 0,
+      applePayMerchantId: getAppleMerchantId(),
+      gPayMerchantId: getGPayMerchantId(),
+      gPayGatewayMerchantId: getGPayGatewayMerchantId()
+    }).then((res) => {
+      Alert.alert("Result: " + res)
+    });
+  }
 
   function getAppleMerchantId() {
     var merchantId;
@@ -84,14 +93,14 @@ const FirstPage = () => {
           <Button
             title="StartSetupFlow"
             color='#008275'
-            onPress={handlePress}
+            onPress={handleSetupIntentPress}
           />
         </View>
         <View style={styles.buttonWrapper}>
           <Button
             title="StartPaymentFlow"
             color='#008275'
-            onPress={handlePress}
+            onPress={handlePaymentIntentPress}
           />
         </View>
       </View>
@@ -124,7 +133,6 @@ const styles = StyleSheet.create({
     width: 200,
     marginTop: 280,
     fontSize: 20,
-    fontFamily: 'Araboto',
     padding: 10
   },
   settingsLabels: {

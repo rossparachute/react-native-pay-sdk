@@ -93,6 +93,7 @@ export type PaymentDetails = {
 
 export interface Spec extends TurboModule {
   startPaymentFlow(details: PaymentDetails): Promise<number>;
+  startSetupFlow(details: PaymentDetails): Promise<number>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('DojoReactNativePaySdk');
