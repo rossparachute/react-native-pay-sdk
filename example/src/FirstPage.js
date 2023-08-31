@@ -24,11 +24,11 @@ const FirstPage = () => {
     startSetupFlow({
       intentId: userInput,
       darkTheme: darkThemeEnabled === 1,
-      forceLightMode: darkThemeEnabled === 0
+      forceLightMode: darkThemeEnabled === 0,
     }).then((res) => {
       Alert.alert(`Result: ` + res);
     });
-  }
+  };
 
   const handlePaymentIntentPress = () => {
     startPaymentFlow({
@@ -41,30 +41,30 @@ const FirstPage = () => {
     }).then((res) => {
       Alert.alert(`Result: ` + res);
     });
-  }
+  };
 
   function getAppleMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = `merchant.ApplePay.id.test`
+      merchantId = `merchant.ApplePay.id.test`;
     }
-    return merchantId
+    return merchantId;
   }
 
   function getGPayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = `dojo`
+      merchantId = `dojo`;
     }
-    return merchantId
+    return merchantId;
   }
 
   function getGPayGatewayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = `merchant.GPay.gateway.test`
+      merchantId = `merchant.GPay.gateway.test`;
     }
-    return merchantId
+    return merchantId;
   }
 
   const navigation = useNavigation();
