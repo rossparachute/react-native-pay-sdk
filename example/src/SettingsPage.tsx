@@ -5,9 +5,13 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 const SettingsPage = () => {
   const {
+    // @ts-ignore: will refactor later
     walletPaymentsEnabled,
+    // @ts-ignore: will refactor later
     toggleSwitch,
+    // @ts-ignore: will refactor later
     darkThemeEnabled,
+    // @ts-ignore: will refactor later
     handleIndexChange,
   } = useSwitchContext();
   var OSpay = '';
@@ -19,18 +23,17 @@ const SettingsPage = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.viewFlexDirection}>
         <Text style={styles.label}>{OSpay}</Text>
 
         <Switch
           style={styles.rightContainer}
-          name="OSpay Switch"
           onValueChange={toggleSwitch}
           value={walletPaymentsEnabled}
         />
       </View>
 
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.viewFlexDirection}>
         <Text style={styles.label}>Theme</Text>
         <View style={[styles.segmentContainer, styles.rightContainer]}>
           <SegmentedControlTab
@@ -48,6 +51,9 @@ const SettingsPage = () => {
 };
 
 const styles = StyleSheet.create({
+  viewFlexDirection: {
+    flexDirection: 'row',
+  },
   mainContainer: {
     paddingRight: 55,
     paddingLeft: 55,

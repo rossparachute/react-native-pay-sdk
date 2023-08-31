@@ -1,21 +1,21 @@
 import React, { createContext, useContext, useState } from 'react';
 
+// @ts-ignore: will refactor later
 const SwitchContext = createContext();
 
 export const useSwitchContext = () => {
   return useContext(SwitchContext);
 };
 
-export const SwitchProvider = ({ children }) => {
+export const SwitchProvider = ({ children }: { children: any }) => {
   const [walletPaymentsEnabled, setIsEnabled] = useState(true);
+  const [darkThemeEnabled, setSelectedIndex] = useState(0);
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
   };
 
-  const [darkThemeEnabled, setSelectedIndex] = useState(0);
-
-  const handleIndexChange = (index) => {
+  const handleIndexChange = (index: React.SetStateAction<number>) => {
     setSelectedIndex(index);
   };
 

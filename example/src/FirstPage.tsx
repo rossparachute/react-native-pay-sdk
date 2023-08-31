@@ -15,8 +15,11 @@ import { useSwitchContext } from './SwitchContext';
 
 const FirstPage = () => {
   const [userInput, setUserInput] = useState('');
+  const navigation = useNavigation();
+  // @ts-ignore: will refactor later
+  const { walletPaymentsEnabled, darkThemeEnabled } = useSwitchContext();
 
-  const handleChange = (value) => {
+  const handleChange = (value: React.SetStateAction<string>) => {
     setUserInput(value);
   };
 
@@ -67,9 +70,6 @@ const FirstPage = () => {
     return merchantId;
   }
 
-  const navigation = useNavigation();
-  const { walletPaymentsEnabled, darkThemeEnabled } = useSwitchContext();
-
   return (
     <View style={styles.mainContainer}>
       <TextInput
@@ -90,6 +90,7 @@ const FirstPage = () => {
         <Button
           title="Settings"
           type="clear"
+          // @ts-ignore: will refactor later
           onPress={() => navigation.navigate('Settings')}
         />
       </View>
