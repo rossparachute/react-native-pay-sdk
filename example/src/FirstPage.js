@@ -7,7 +7,10 @@ import 'react-native-gesture-handler';
 import { Button } from '@rneui/themed';
 
 // sdk
-import { startPaymentFlow, startSetupFlow } from '@dojo-engineering/react-native-pay-sdk';
+import {
+  startPaymentFlow,
+  startSetupFlow 
+} from '@dojo-engineering/react-native-pay-sdk';
 import { useSwitchContext } from './SwitchContext';
 
 const FirstPage = () => {
@@ -15,6 +18,16 @@ const FirstPage = () => {
 
   const handleChange = (value) => {
     setUserInput(value);
+  };
+
+  const handleSetupIntentPress = () => {
+    startSetupFlow({
+      intentId: userInput,
+      darkTheme: darkThemeEnabled === 1,
+      forceLightMode: darkThemeEnabled === 0
+    }).then((res) => {
+      Alert.alert(`Result: ` + res);
+    });
   }
 
   const handlePaymentIntentPress = () => {
@@ -24,29 +37,16 @@ const FirstPage = () => {
       forceLightMode: darkThemeEnabled === 0,
       applePayMerchantId: getAppleMerchantId(),
       gPayMerchantId: getGPayMerchantId(),
-      gPayGatewayMerchantId: getGPayGatewayMerchantId()
+      gPayGatewayMerchantId: getGPayGatewayMerchantId(),
     }).then((res) => {
-      Alert.alert("Result: " + res)
-    });
-  }
-
-  const handleSetupIntentPress = () => {
-    startSetupFlow({
-      intentId: userInput,
-      darkTheme: darkThemeEnabled === 1,
-      forceLightMode: darkThemeEnabled === 0,
-      applePayMerchantId: getAppleMerchantId(),
-      gPayMerchantId: getGPayMerchantId(),
-      gPayGatewayMerchantId: getGPayGatewayMerchantId()
-    }).then((res) => {
-      Alert.alert("Result: " + res)
+      Alert.alert(`Result: ` + res);
     });
   }
 
   function getAppleMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "merchant.ApplePay.id.test"
+      merchantId = `merchant.ApplePay.id.test`
     }
     return merchantId
   }
@@ -54,7 +54,7 @@ const FirstPage = () => {
   function getGPayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "dojo"
+      merchantId = `dojo`
     }
     return merchantId
   }
@@ -62,7 +62,7 @@ const FirstPage = () => {
   function getGPayGatewayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "merchant.GPay.gateway.test"
+      merchantId = `merchant.GPay.gateway.test`
     }
     return merchantId
   }
