@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState } from 'react';
 
 const SwitchContext = createContext();
@@ -11,17 +10,24 @@ export const SwitchProvider = ({ children }) => {
   const [walletPaymentsEnabled, setIsEnabled] = useState(true);
 
   const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
+    setIsEnabled((previousState) => !previousState);
   };
-  
+
   const [darkThemeEnabled, setSelectedIndex] = useState(0);
 
-    const handleIndexChange = (index) => {
-        setSelectedIndex(index);
-    }
+  const handleIndexChange = (index) => {
+    setSelectedIndex(index);
+  };
 
   return (
-    <SwitchContext.Provider value={{ walletPaymentsEnabled, toggleSwitch, darkThemeEnabled, handleIndexChange }}>
+    <SwitchContext.Provider
+      value={{
+        walletPaymentsEnabled,
+        toggleSwitch,
+        darkThemeEnabled,
+        handleIndexChange,
+      }}
+    >
       {children}
     </SwitchContext.Provider>
   );
