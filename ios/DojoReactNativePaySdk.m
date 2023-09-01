@@ -36,9 +36,6 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
                           initWithMerchantIdentifier:applePayMerchantId];
     }
     
-    
-    
-    
     DojoSDKDebugConfig *debugConfig;
     if (isProduction != nil && isProduction.boolValue == false) {
         DojoSDKURLConfig *urlConfig = [[DojoSDKURLConfig alloc]
@@ -85,6 +82,73 @@ RCT_REMAP_METHOD(startPaymentFlow, startPaymentFlow
                                   themeSettings:theme
                                     debugConfig:debugConfig
                                      completion:^(NSInteger result) {
+        if (expiryTimer != nil) {
+            [expiryTimer invalidate];
+        }
+        resolve(@(result));
+    }];
+}
+
+RCT_REMAP_METHOD(startSetupFlow, startSetupFlow
+                 : (NSDictionary*)details resolve
+                 : (RCTPromiseResolveBlock)resolve reject
+                 : (RCTPromiseRejectBlock)reject) {
+    
+    DojoSDKDropInUI *dojoUI = [[DojoSDKDropInUI alloc] init];
+    UIViewController *vc = RCTPresentedViewController();
+    NSTimer *expiryTimer = nil;
+    
+    NSString *intentId = details[@"intentId"];
+    NSNumber *darkTheme = details[@"darkTheme"];
+    NSNumber *isProduction = details[@"isProduction"];
+    NSNumber *showBranding = details[@"showBranding"];
+    NSString *mustCompleteBy = details[@"mustCompleteBy"];
+    
+    
+    DojoSDKDebugConfig *debugConfig;
+    if (isProduction != nil && isProduction.boolValue == false) {
+        DojoSDKURLConfig *urlConfig = [[DojoSDKURLConfig alloc]
+                                       initWithConnectE: @"https://web.e.test.connect.paymentsense.cloud"
+                                       remote: @"https://staging-api.dojo.dev/master"];
+        debugConfig = [[DojoSDKDebugConfig alloc]
+                       initWithUrlConfig:urlConfig
+                       isSandboxIntent:true
+                       isSandboxWallet:true];
+    }
+    
+    
+    DojoThemeSettings *theme;
+    if (darkTheme != nil && darkTheme.boolValue == true) {
+        theme = [DojoThemeSettings getDarkTheme];
+    } else {
+        theme = [DojoThemeSettings getLightTheme];
+    }
+    
+    if (showBranding != nil && showBranding.boolValue == false) {
+        [theme setShowBranding:@false];
+    }
+    
+    if (mustCompleteBy != nil) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        NSDate *date = [dateFormatter dateFromString:mustCompleteBy];
+        
+        expiryTimer = [[NSTimer alloc] initWithFireDate:date interval:0 repeats:false block:^(NSTimer * _Nonnull timer) {
+            if (expiryTimer != nil) {
+                [expiryTimer invalidate];
+            }
+            [vc dismissViewControllerAnimated:YES completion:nil];
+            resolve(@(EXPIRED_RESULT_CODE));
+        }];
+        
+        [[NSRunLoop mainRunLoop] addTimer: expiryTimer forMode:NSDefaultRunLoopMode];
+    }
+    
+    [dojoUI startSetupFlowWithSetupIntentId:intentId
+                                 controller:vc
+                              themeSettings:theme
+                                debugConfig:debugConfig
+                                 completion:^(NSInteger result) {
         if (expiryTimer != nil) {
             [expiryTimer invalidate];
         }

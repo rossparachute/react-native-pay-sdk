@@ -7,74 +7,91 @@ import 'react-native-gesture-handler';
 import { Button } from '@rneui/themed';
 
 // sdk
-import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
+import {
+  startPaymentFlow,
+  startSetupFlow,
+} from '@dojo-engineering/react-native-pay-sdk';
 import { useSwitchContext } from './SwitchContext';
 
 const FirstPage = () => {
   const [userInput, setUserInput] = useState('');
+  const navigation = useNavigation();
+  // @ts-ignore: will refactor later
+  const { walletPaymentsEnabled, darkThemeEnabled } = useSwitchContext();
 
-  const handleChange = (value) => {
+  const handleChange = (value: React.SetStateAction<string>) => {
     setUserInput(value);
-  }
+  };
 
-  const handlePress = () => {
-    pay();
-  }
+  const handleSetupIntentPress = () => {
+    startSetupFlow({
+      intentId: userInput,
+      darkTheme: darkThemeEnabled === 1,
+      forceLightMode: darkThemeEnabled === 0,
+    }).then((res) => {
+      Alert.alert(`Result: ` + res);
+    });
+  };
 
-  const pay = () => {
+  const handlePaymentIntentPress = () => {
     startPaymentFlow({
       intentId: userInput,
       darkTheme: darkThemeEnabled === 1,
       forceLightMode: darkThemeEnabled === 0,
       applePayMerchantId: getAppleMerchantId(),
       gPayMerchantId: getGPayMerchantId(),
-      gPayGatewayMerchantId: getGPayGatewayMerchantId()
+      gPayGatewayMerchantId: getGPayGatewayMerchantId(),
     }).then((res) => {
-      Alert.alert("Result: " + res)
+      Alert.alert(`Result: ` + res);
     });
   };
 
   function getAppleMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "merchant.ApplePay.id.test"
+      merchantId = `merchant.ApplePay.id.test`;
     }
-    return merchantId
+    return merchantId;
   }
 
   function getGPayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "dojo"
+      merchantId = `dojo`;
     }
-    return merchantId
+    return merchantId;
   }
 
   function getGPayGatewayMerchantId() {
     var merchantId;
     if (walletPaymentsEnabled) {
-      merchantId = "merchant.GPay.gateway.test"
+      merchantId = `merchant.GPay.gateway.test`;
     }
-    return merchantId
+    return merchantId;
   }
-
-  const navigation = useNavigation();
-  const { walletPaymentsEnabled, darkThemeEnabled } = useSwitchContext();
 
   return (
     <View style={styles.mainContainer}>
-
-      <TextInput style={styles.input} onChangeText={handleChange} placeholder='IntentId' />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange}
+        placeholder="IntentId"
+      />
       <View style={styles.leftContainer}>
-        <Text style={styles.settingsLabels}>WalletPayments: {walletPaymentsEnabled ? "Enabled" : "Disabled"} </Text>
-        <Text style={styles.settingsLabels}>Theme: {darkThemeEnabled === 0 ? "Light" : "Dark"} </Text>
+        <Text style={styles.settingsLabels}>
+          WalletPayments: {walletPaymentsEnabled ? 'Enabled' : 'Disabled'}
+        </Text>
+        <Text style={styles.settingsLabels}>
+          Theme: {darkThemeEnabled === 0 ? 'Light' : 'Dark'}
+        </Text>
       </View>
 
       <View style={styles.rightContainer}>
         <Button
+          // @ts-ignore: will refactor later
           title="Settings"
-          type='clear'
+          type="clear"
+          // @ts-ignore: will refactor later
           onPress={() => navigation.navigate('Settings')}
         />
       </View>
@@ -82,23 +99,25 @@ const FirstPage = () => {
       <View style={styles.bottomContainer}>
         <View style={styles.buttonWrapper}>
           <Button
+            // @ts-ignore: will refactor later
             title="StartSetupFlow"
-            color='#008275'
-            onPress={handlePress}
+            color="#008275"
+            onPress={handleSetupIntentPress}
           />
         </View>
         <View style={styles.buttonWrapper}>
           <Button
+            // @ts-ignore: will refactor later
             title="StartPaymentFlow"
-            color='#008275'
-            onPress={handlePress}
+            color="#008275"
+            onPress={handlePaymentIntentPress}
           />
         </View>
       </View>
       <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -113,19 +132,18 @@ const styles = StyleSheet.create({
   rightContainer: {
     padding: 10,
     alignSelf: 'flex-end',
-    marginTop:-60
+    marginTop: -60,
   },
   bottomContainer: {
-    padding:10,
-    marginTop:80
+    padding: 10,
+    marginTop: 80,
   },
   input: {
     borderWidth: 0.8,
     width: 200,
     marginTop: 280,
     fontSize: 20,
-    fontFamily: 'Araboto',
-    padding: 10
+    padding: 10,
   },
   settingsLabels: {
     fontSize: 15,
@@ -133,7 +151,6 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     marginVertical: 8,
   },
-
 });
 
 export default FirstPage;
