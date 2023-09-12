@@ -1,108 +1,30 @@
 # Dojo React Native Pay SDK
 
-![GitHub release](https://badgen.net/github/release/Dojo-Engineering/react-native-pay-sdk)
-![GitHub license](https://badgen.net/static/license/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/dojo-engineering/react-native-pay-sdk)](https://github.com/dojo-engineering/react-native-pay-sdk/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/dojo-engineering/react-native-pay-sdk/blob/master/LICENSE)
+[![Platform-iOS](https://img.shields.io/badge/platform-iOS-blue)](https://github.com/dojo-engineering/dojo-ios-sdk/tree/master)
+[![Platform-Android](https://img.shields.io/badge/platform-Android-blue)](https://github.com/dojo-engineering/android-dojo-pay-sdk/tree/master)
 
-React Native wrapper for Dojo Payment iOS and Android SDKs
+[📚 Integration guide](https://docs.dojo.tech/payments/mobile-integration/ios/accept-payments/react-native-step-by-step-guide) | [🧑‍💻 Setup React Native](https://docs.dojo.tech/payments/mobile-integration/react-native/setup) | [🛠️ Releases](https://github.com/dojo-engineering/react-native-pay-sdk/releases)
+
+## Requirements
+
+- iOS version **11.0** and later.
+- Android version **5.0** and later.
 
 ## Installation
 
-Note: as the package is published privately in github packages, you will need to authenticate npm/yarn with github as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package).
+Check out our [setup guide 🔧](https://docs.dojo.tech/payments/mobile-integration/react-native/setup) to get started.
 
-Add the package to your project
 
-```sh
-npm install @dojo-engineering/react-native-pay-sdk
-```
+## Accept payments
 
-### iOS
-
-Add the native dependencies to your `Podfile`
-
-```ruby
-pod 'dojo-ios-sdk', :git => 'git@github.com:Dojo-Engineering/dojo-ios-sdk.git', :tag => '1.3.0'
-pod 'dojo-ios-sdk-drop-in-ui', :git => 'git@github.com:dojo-engineering/dojo-ios-sdk-drop-in-ui.git', :tag => '1.2.2'
-```
-
-### Android
-
-Add the native dependencies to your apps `build.gradle`
-
-```groovy
-implementation("tech.dojo.pay:uisdk:1.2.1")
-implementation("tech.dojo.pay:sdk:1.5.0")
-```
-
-Add the necessary repositories to retrieve the dependencies
-
-```groovy
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/dojo-engineering/android-dojo-pay-sdk")
-        credentials {
-            username = project.findProperty("gpr.user")
-            password = project.findProperty("gpr.key")
-        }
-    }
-    maven {
-        url = uri("https://cardinalcommerceprod.jfrog.io/artifactory/android")
-        credentials {
-            username = project.findProperty("cardinal.user")
-            password = project.findProperty("cardinal.key")
-        }
-    }
-}
-```
-
-You must set the credentials for accessing both repositories in your `~/.gradle/gradle.properties`
-
-```
-gpr.user={your github user}
-gpr.key={github personal access token}
-cardinal.user={cardinal user}
-cardinal.key={cardinal password}
-```
-
-Add the following code to your apps `MainActivity.java`
-
-```java
-import com.dojoreactnativepaysdk.DojoPay;
-
-...
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  DojoPay.init(this);
-}
-```
-
-## Usage
-
-```js
-import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
-
-// ...
-
-const result = await startPaymentFlow({ intentId: '{{ payment intent ID }}' });
-
-if (result === 0) {
-  // success
-} else {
-  // error
-}
-```
-
-All the params and possible result codes are documented by the types [here](https://github.com/dojo-engineering/react-native-pay-sdk/blob/main/src/NativeDojoReactNativePaySdk.ts).
+Once you've setup the Dojo React Native SDK, you can configure your iOS or Android app to start [accepting payments 💳](https://docs.dojo.tech/payments/mobile-integration/react-native/accept-payments/react-native-step-by-step-guide).
 
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+We welcome contributions for features, bug fixes, enhancements, or any documentation feedback. Feel free to [open an issue](https://github.com/dojo-engineering/react-native-pay-sdk/issues) describing your contribution in detail and we will get back to you soon to take it forward.
 
-## License
+## Let's connect 🤝!
 
-Dojo React Native Pay SDK is available under the MIT license. See the LICENSE file for more info.
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+Show some love to our developers and connect with them on our [Discord server](https://discord.gg/9UzNq4Hz93).
