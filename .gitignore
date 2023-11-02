@@ -71,3 +71,5 @@ lib/
 
 package-lock.json
 yarn.lock
+# Ignore Gradle build output directory
+build

@@ -50,7 +50,7 @@ const DojoReactNativePaySdk = DojoReactNativePaySdkModule
       {},
       {
         get() {
-          console.error(LINKING_ERROR)
+            console.error(LINKING_ERROR)
           // throw new Error(LINKING_ERROR);
         },
       }
