@@ -150,13 +150,6 @@ android {
 
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/dojo-engineering/android-dojo-pay-sdk")
-        credentials {
-            username = project.findProperty("gpr.user")
-            password = project.findProperty("gpr.key")
-        }
-    }
-    maven {
         url = uri("https://cardinalcommerceprod.jfrog.io/artifactory/android")
         credentials {
             username = project.findProperty("cardinal.user")
@@ -168,12 +161,12 @@ repositories {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    implementation 'com.google.android.material:material:1.4.+'
+    implementation 'com.google.android.material:material:1.5.+'
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-    implementation("tech.dojo.pay:uisdk:1.3.4")
-    implementation("tech.dojo.pay:sdk:1.6.0")
+    implementation("tech.dojo.pay:uisdk:1.3.5")
+    implementation("tech.dojo.pay:sdk:1.6.2")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
