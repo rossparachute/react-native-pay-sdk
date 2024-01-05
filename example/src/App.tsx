@@ -1,47 +1,20 @@
 import * as React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import FirstPage from './FirstPage';
+import SettingsPage from './SettingsPage';
+import { SwitchProvider } from './SwitchContext';
 
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
-import { startPaymentFlow } from '@dojo-engineering/react-native-pay-sdk';
-
+const Stack = createStackNavigator();
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-  const [token, setToken] = React.useState<string>('');
-
-  const pay = () => {
-    startPaymentFlow({
-      intentId: token,
-    }).then((res) => {
-      setResult(res);
-    });
-  };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.input} onChangeText={setToken} value={token} />
-      </View>
-      <Button title="Pay" onPress={pay} />
-      <Text>Result: {result}</Text>
-    </View>
+    <SwitchProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Dojo SDK" component={FirstPage} />
+          <Stack.Screen name="Settings" component={SettingsPage} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SwitchProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    flex: 1,
-  },
-});

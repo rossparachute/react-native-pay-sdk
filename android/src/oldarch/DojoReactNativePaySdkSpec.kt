@@ -9,4 +9,5 @@ abstract class DojoReactNativePaySdkSpec internal constructor(context: ReactAppl
   ReactContextBaseJavaModule(context) {
 
   abstract fun startPaymentFlow(details: ReadableMap, promise: Promise)
+  abstract fun startSetupFlow(details: ReadableMap, promise: Promise)
 }

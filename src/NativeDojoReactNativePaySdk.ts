@@ -94,7 +94,7 @@ export type PaymentDetails = {
 
 export interface Spec extends TurboModule {
   startPaymentFlow(details: PaymentDetails): Promise<number>;
-  hello(): string;
+  startSetupFlow(details: PaymentDetails): Promise<number>;
 }
 
 let RTNModule: Spec | null = null;

@@ -7,6 +7,7 @@ import tech.dojo.pay.sdk.card.entities.DojoSDKDebugConfig
 import tech.dojo.pay.sdk.card.entities.DojoSDKURLConfig
 import tech.dojo.pay.uisdk.DojoSDKDropInUI
 import tech.dojo.pay.uisdk.entities.DojoPaymentFlowParams
+import tech.dojo.pay.uisdk.entities.DojoPaymentType
 import tech.dojo.pay.uisdk.entities.DojoThemeSettings
 
 const val RN_NAMESPACE = "com.dojoreactnativepaysdk"
@@ -78,6 +79,53 @@ class DojoReactNativePaySdkModule internal constructor(context: ReactApplication
         paymentId = intentId,
         clientSecret = customerSecret,
         GPayConfig = gPayConfig
+      )
+    )
+  }
+
+  @ReactMethod
+  override fun startSetupFlow(details: ReadableMap, promise: Promise) {
+    val intentId = details.getString(INTENT_ID)
+    val forceLightMode = if (details.hasKey(FORCE_LIGHT_MODE)) details.getBoolean(FORCE_LIGHT_MODE) else false
+    val isProduction = if (details.hasKey(IS_PRODUCTION)) details.getBoolean(IS_PRODUCTION) else true
+    val showBranding =
+      if (details.hasKey(SHOW_BRANDING)) details.getBoolean(SHOW_BRANDING) else true
+    val mustCompleteBy = details.getString(MUST_COMPLETE_BY)
+
+    if (intentId.isNullOrEmpty()) {
+      promise.resolve(DojoPaymentResult.INVALID_REQUEST.code)
+      return
+    }
+
+    if (DojoPay.UIHandler == null) {
+      promise.resolve(DojoPaymentResult.SDK_INTERNAL_ERROR.code)
+      return
+    }
+
+    val urlConfig = if (!isProduction) DojoSDKURLConfig(
+      "https://web.e.test.connect.paymentsense.cloud/",
+      "https://staging-api.dojo.dev/master/",
+    ) else null
+
+    var debugConfig = if (!isProduction) DojoSDKDebugConfig(
+      urlConfig,
+      true,
+      true
+    ) else null
+
+    DojoSDKDropInUI.dojoSDKDebugConfig = debugConfig
+    DojoSDKDropInUI.dojoThemeSettings = DojoThemeSettings(forceLightMode = forceLightMode, showBranding = showBranding)
+
+    if (mustCompleteBy != null) {
+      DojoPay.startExpiryTimer(mustCompleteBy, reactApplicationContext)
+    }
+
+    DojoPay.activePromise = promise
+
+    DojoPay.UIHandler?.startPaymentFlow(
+      DojoPaymentFlowParams(
+        paymentId = intentId,
+        paymentType = DojoPaymentType.SETUP_INTENT
       )
     )
   }
